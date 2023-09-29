@@ -8,64 +8,62 @@ class App extends Component {
         super();
 
         this.state = {
-            result: ""
+            result: "",
         }
     }
 
     onClick = button => {
-
-        if(button === "="){
-            this.calculate()
-        }
-
-        else if(button === "C"){
-            this.reset()
-        }
-        else if(button === "CE"){
-            this.backspace()
-        }
-
-        else {
+        if (button === "=") {
+            this.calculate();
+        } else if (button === "C") {
+            this.reset();
+        } else if (button === "CE") {
+            this.backspace();
+        } else {
+            // Update the result based on the clicked button
             this.setState({
-                result: this.state.result + button
-            })
+                result: this.state.result + button,
+            });
         }
     };
 
-
     calculate = () => {
-        var checkResult = ''
-        if(this.state.result.includes('--')){
-            checkResult = this.state.result.replace('--','+')
-        }
-
-        else {
-            checkResult = this.state.result
+        var checkResult = '';
+        if (this.state.result.includes('--')){
+            checkResult = this.state.result.replace('--', '+');
+        } else {
+            checkResult = this.state.result;
         }
 
         try {
             this.setState({
-                // eslint-disable-next-line
-                result: (eval(checkResult) || "" ) + ""
-            })
+                result: (eval(checkResult) || "") + "",
+            });
         } catch (e) {
             this.setState({
-                result: "error"
-            })
-
+                result: "error",
+            });
         }
     };
 
     reset = () => {
         this.setState({
-            result: ""
-        })
+            result: "",
+        });
     };
 
     backspace = () => {
         this.setState({
-            result: this.state.result.slice(0, -1)
-        })
+            result: this.state.result.slice(0, -1),
+        });
+    };
+
+    // Function to handle the "DIZON" button click
+    handleSurnameButtonClick = () => {
+        // Update the result to "John Doe" when the button is clicked
+        this.setState({
+            result: "John Enrick Dizon",
+        });
     };
 
     render() {
@@ -76,7 +74,7 @@ class App extends Component {
                     <ResultComponent result={this.state.result}/>
                     <KeyPadComponent onClick={this.onClick}/>
                 </div>
-                <button className="surnamebutton">Dizon</button>
+                <button className="surnamebutton" onClick={this.handleSurnameButtonClick}>DIZON</button>
             </div>
         );
     }
